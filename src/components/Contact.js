@@ -84,11 +84,11 @@ const Contact = () => {
               phone: '(518)-111-1234',
               email: 'hr@dhriti.solutions'
             }, {
-              title: 'Sales',
+              title: 'Sales 1',
               phone: '(518)-111-1234',
               email: 'ganesh@dhriti.solutions'
             }, {
-              title: 'Sales',
+              title: 'Sales 2',
               phone: '(518)-111-1234',
               email: 'kc@dhriti.solutions'
             }].map((item, idx) => (
