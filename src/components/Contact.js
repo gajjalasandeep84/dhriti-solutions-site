@@ -1,143 +1,109 @@
-import React from 'react';
+// Contact.js
+import React, { useRef } from 'react';
+import emailjs from 'emailjs-com';
+import { FaPhoneAlt, FaEnvelope, FaClock } from 'react-icons/fa';
 
-function Contact() {
+const Contact = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm(
+      'service_7de2vba',
+      'template_9did7be',
+      form.current,
+      'RbSIEsg3eItd9Q2WL'
+    ).then(
+      (result) => {
+        alert('Message sent successfully!');
+        form.current.reset();
+      },
+      (error) => {
+        alert('Failed to send message. Please try again.');
+      }
+    );
+  };
+
   return (
-    <section id="contact">
-      {/* Top Banner */}
-      <div style={{
-        padding: '4rem 2rem',
-        marginTop: '2rem',     // ✅ Add this line
-        background: 'linear-gradient(to right, #0f172a, #1e3a8a)',
-        color: 'white',
-        textAlign: 'center'
-      }}>
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>Get in Touch</h1>
-        <p style={{ marginTop: '1rem' }}>
-          Let's discuss how we can help transform your business with innovative technology solutions.
-        </p>
-      </div>
+    <section id="contact" style={{ backgroundColor: '#f9f9f9', padding: '4rem 2rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {/* Top Info Cards */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1.5rem', marginBottom: '3rem' }}>
+          {[{
+            icon: <FaPhoneAlt size={24} style={{ color: '#ef4444' }} />, title: 'Call Us', desc: 'Speak directly with our experts', info: '+1 (518) 111-1234'
+          }, {
+            icon: <FaEnvelope size={24} style={{ color: '#3b82f6' }} />, title: 'Email Us', desc: 'Send us your inquiries anytime', info: 'hr@dhriti.solutions'
+          }, {
+            icon: <FaClock size={24} style={{ color: '#facc15' }} />, title: 'Business Hours', desc: "We're available:", info: 'Mon–Fri: 9:00 AM – 5:00 PM EST'
+          }].map((item, idx) => (
+            <div key={idx} style={{ flex: 1, background: 'white', padding: '1.5rem', borderRadius: '10px', boxShadow: '0 2px 6px rgba(0,0,0,0.05)', textAlign: 'center' }}>
+              <div style={{ marginBottom: '1rem' }}>{item.icon}</div>
+              <h4 style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>{item.title}</h4>
+              <p style={{ margin: 0 }}>{item.desc}</p>
+              <p style={{ color: '#1d4ed8', fontWeight: '600', marginTop: '0.5rem' }}>{item.info}</p>
+            </div>
+          ))}
+        </div>
 
-      {/* Info Cards */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '2rem',
-        padding: '2rem',
-        flexWrap: 'wrap',
-        backgroundColor: '#f9f9f9'
-      }}>
-        <ContactCard icon="📞" title="Call Us" text="Speak directly with our experts" info="+1 (518) 111-1234" />
-        <ContactCard icon="📧" title="Email Us" text="Send us your inquiries anytime" info="hr@dhriti.solutions" />
-        <ContactCard icon="⏰" title="Business Hours" text="We’re available:" info="Mon–Fri: 9:00 AM – 5:00 PM EST" />
-      </div>
-
-      {/* Form and Contact Info */}
-      <div style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '2rem',
-        padding: '2rem',
-        justifyContent: 'center'
-      }}>
-        {/* Form */}
-        <form style={{
-          flex: '1',
-          minWidth: '350px',
-          maxWidth: '600px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem'
-        }}>
-          <h2>Send Us a Message</h2>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <input type="text" placeholder="Full Name *" style={inputStyle} required />
-            <input type="email" placeholder="Email Address *" style={inputStyle} required />
+        {/* Form & Contacts */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
+          {/* Form */}
+          <div style={{ flex: '1 1 550px' }}>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Send Us a Message</h2>
+            <form ref={form} onSubmit={sendEmail} style={{ display: 'grid', gap: '1rem' }}>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <input name="full_name" placeholder="Full Name *" required style={{ flex: 1, padding: '0.75rem' }} />
+                <input name="email" placeholder="Email Address *" required type="email" style={{ flex: 1, padding: '0.75rem' }} />
+              </div>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <input name="phone" placeholder="Phone Number" style={{ flex: 1, padding: '0.75rem' }} />
+                <input name="company" placeholder="Company Name" style={{ flex: 1, padding: '0.75rem' }} />
+              </div>
+              <select name="service" required style={{ padding: '0.75rem' }}>
+                <option value="">Select a service</option>
+                <option value="Software">Software</option>
+                <option value="Consulting">Consulting</option>
+                <option value="Staffing">Staffing</option>
+                <option value="Data Science">Data Science</option>
+              </select>
+              <input name="subject" placeholder="Subject *" required style={{ padding: '0.75rem' }} />
+              <textarea name="message" placeholder="Message *" required rows="5" style={{ padding: '0.75rem' }}></textarea>
+              <button type="submit" style={{ background: 'linear-gradient(to right, #1e3a8a, #10b981)', color: 'white', padding: '1rem', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>
+                Send Message
+              </button>
+            </form>
           </div>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <input type="text" placeholder="Phone Number" style={inputStyle} />
-            <input type="text" placeholder="Company Name" style={inputStyle} />
-          </div>
-          <select style={inputStyle}>
-            <option>Select a service</option>
-            <option>Software</option>
-            <option>Consulting</option>
-            <option>Data Science</option>
-            <option>Staffing</option>
-          </select>
-          <input type="text" placeholder="Subject *" style={inputStyle} required />
-          <textarea placeholder="Message *" rows="4" style={inputStyle} required></textarea>
-          <button type="submit" style={{
-            padding: '1rem',
-            background: 'linear-gradient(to right, #1e3a8a, #1db489)',
-            color: 'white',
-            fontWeight: 'bold',
-            border: 'none',
-            cursor: 'pointer',
-            borderRadius: '5px'
-          }}>Send Message</button>
-        </form>
 
-        {/* Contacts */}
-        <div style={{ flex: '1', minWidth: '300px', maxWidth: '400px' }}>
-          <h2>Our Contacts</h2>
-          <ContactBlock
-            title="Albany (HQ)  & Human Resources"
-            address="20 Sutton Dr,Cohoes, NY 12047"
-            phone="(518)-111-1234"
-            email="hr@dhriti.solutions"
-          />
-          <ContactBlock
-            title="Sales"
-            phone="(518)-111-1234"
-            email="ganesh@dhriti.solutions"
-          />
-          <ContactBlock
-            title="Sales"
-            phone="(518)-111-1234"
-            email="kc@dhriti.solutions"
-          />
+          {/* Contact Cards */}
+          <div style={{ flex: '1 1 400px' }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Our Contacts</h3>
+            {[{
+              title: 'Albany (HQ) & Human Resources',
+              address: '20 Sutton Dr, Cohoes, NY 12047',
+              phone: '(518)-111-1234',
+              email: 'hr@dhriti.solutions'
+            }, {
+              title: 'Sales',
+              phone: '(518)-111-1234',
+              email: 'ganesh@dhriti.solutions'
+            }, {
+              title: 'Sales',
+              phone: '(518)-111-1234',
+              email: 'kc@dhriti.solutions'
+            }].map((item, idx) => (
+              <div key={idx} style={{ background: '#f1f5f9', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
+                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>{item.title}</h4>
+                {item.address && <p>{item.address}</p>}
+                {item.phone && <p><FaPhoneAlt style={{ marginRight: '6px' }} /> {item.phone}</p>}
+                {item.email && <p><FaEnvelope style={{ marginRight: '6px' }} /> {item.email}</p>}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
-}
-
-const ContactCard = ({ icon, title, text, info }) => (
-  <div style={{
-    background: '#fff',
-    padding: '1.5rem',
-    borderRadius: '10px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-    width: '250px',
-    textAlign: 'center'
-  }}>
-    <div style={{ fontSize: '2rem' }}>{icon}</div>
-    <h3>{title}</h3>
-    <p style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}>{text}</p>
-    <p style={{ fontWeight: 'bold', color: '#1e3a8a' }}>{info}</p>
-  </div>
-);
-
-const ContactBlock = ({ title, address, phone, email }) => (
-  <div style={{
-    background: '#f5f7f9',
-    padding: '1rem',
-    borderRadius: '8px',
-    marginBottom: '1rem'
-  }}>
-    <h4 style={{ margin: '0 0 0.5rem' }}>{title}</h4>
-    {address && <p style={{ margin: '0.5rem 0' }}>{address}</p>}
-    {phone && <p style={{ margin: '0.5rem 0' }}>📞 {phone}</p>}
-    {email && <p style={{ margin: '0.5rem 0' }}>✉️ {email}</p>}
-  </div>
-);
-
-const inputStyle = {
-  padding: '0.75rem',
-  fontSize: '1rem',
-  border: '1px solid #ccc',
-  borderRadius: '5px',
-  width: '100%'
 };
 
 export default Contact;
