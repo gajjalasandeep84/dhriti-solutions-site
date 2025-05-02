@@ -53,7 +53,7 @@ const Contact = () => {
             <h2 style={{ fontSize: '1.8rem', fontWeight: 'bold', marginBottom: '1.5rem' }}>Send Us a Message</h2>
             <form ref={form} onSubmit={sendEmail} style={{ display: 'grid', gap: '1rem' }}>
               <div style={{ display: 'flex', gap: '1rem' }}>
-                <input name="full_name" placeholder="Full Name *" required style={{ flex: 1, padding: '0.75rem' }} />
+                <input name="name" placeholder="Full Name *" required style={{ flex: 1, padding: '0.75rem' }} />
                 <input name="email" placeholder="Email Address *" required type="email" style={{ flex: 1, padding: '0.75rem' }} />
               </div>
               <div style={{ display: 'flex', gap: '1rem' }}>
@@ -67,7 +67,7 @@ const Contact = () => {
                 <option value="Staffing">Staffing</option>
                 <option value="Data Science">Data Science</option>
               </select>
-              <input name="subject" placeholder="Subject *" required style={{ padding: '0.75rem' }} />
+              <input name="title" placeholder="Subject *" required style={{ padding: '0.75rem' }} />
               <textarea name="message" placeholder="Message *" required rows="5" style={{ padding: '0.75rem' }}></textarea>
               <button type="submit" style={{ background: 'linear-gradient(to right, #1e3a8a, #10b981)', color: 'white', padding: '1rem', fontWeight: 'bold', border: 'none', cursor: 'pointer' }}>
                 Send Message
