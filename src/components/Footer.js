@@ -91,7 +91,7 @@ const Footer = ({ onSelectTab }) => {
           <div style={{ flex: '1 1 220px' }}>
             <h4 style={{ marginBottom: '1rem' }}>Contact</h4>
             <p><FaMapMarkerAlt style={{ marginRight: '8px' }} /> 20 Sutton Dr <br />Cohoes , NY 12047</p>
-            <p><FaPhone style={{ marginRight: '8px' }} />(518)-111-1234</p>
+            <p><FaPhone style={{ marginRight: '8px' }} />(971)-998-5516</p>
             <p><FaEnvelope style={{ marginRight: '8px' }} /> hr@dhriti.solutions</p>
 
             <p style={{ marginTop: '1.2rem', fontWeight: 'bold' }}>Subscribe to our newsletter</p>

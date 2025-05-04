@@ -63,7 +63,7 @@ const PrivacyPolicy = () => {
         <p><strong>Dhriti Solutions Inc.</strong><br />
         20 Sutton Dr<br />
         Cohoes, NY 12047<br />
-        Phone: (518)-111-1234<br />
+        Phone: (971)-998-5516<br />
         Email: hr@dhriti.solutions</p>
       </div>
     </section>

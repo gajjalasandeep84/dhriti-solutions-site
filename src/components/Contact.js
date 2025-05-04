@@ -35,7 +35,7 @@ const Contact = () => {
         {/* Top Info Cards */}
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1.5rem', marginBottom: '3rem' }}>
           {[{
-            icon: <FaPhoneAlt size={24} style={{ color: '#ef4444' }} />, title: 'Call Us', desc: 'Speak directly with our experts', info: '+1 (518) 111-1234'
+            icon: <FaPhoneAlt size={24} style={{ color: '#ef4444' }} />, title: 'Call Us', desc: 'Speak directly with our experts', info: '+1 (971) 998-5516'
           }, {
             icon: <FaEnvelope size={24} style={{ color: '#3b82f6' }} />, title: 'Email Us', desc: 'Send us your inquiries anytime', info: 'hr@dhriti.solutions'
           }, {
@@ -106,22 +106,22 @@ const Contact = () => {
             {[{
               title: 'Albany (HQ) & Human Resources',
               address: '20 Sutton Dr, Cohoes, NY 12047',
-              phone: '(518)-111-1234',
+              phone: '(971)-998-5516',
               email: 'hr@dhriti.solutions'
             }, {
               title: 'Sales',
-              phone: '(518)-111-1234',
-              email: 'ganesh@dhriti.solutions'
-            }, {
-              title: 'Sales',
-              phone: '(518)-111-1234',
-              email: 'kc@dhriti.solutions'
+              emails: ['ganesh@dhriti.solutions', 'kc@dhriti.solutions']
             }].map((item, idx) => (
               <div key={idx} style={{ background: '#f1f5f9', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>{item.title}</h4>
                 {item.address && <p>{item.address}</p>}
                 {item.phone && <p><FaPhoneAlt style={{ marginRight: '6px' }} /> {item.phone}</p>}
-                {item.email && <p><FaEnvelope style={{ marginRight: '6px' }} /> {item.email}</p>}
+                {item.emails
+                  ? item.emails.map((email, i) => (
+                    <p key={i}><FaEnvelope style={{ marginRight: '6px' }} /> {email}</p>
+                  ))
+                  : item.email && <p><FaEnvelope style={{ marginRight: '6px' }} /> {item.email}</p>
+                }
               </div>
             ))}
           </div>
