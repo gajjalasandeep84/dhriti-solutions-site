@@ -1,5 +1,7 @@
 // Footer.js
-import React from 'react';
+import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
+import eVerifyLogo from '../assets/e-verify-logo.png';
 import { Link } from 'react-scroll';
 import {
   FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram,
@@ -19,6 +21,32 @@ const hoverStyle = {
 };
 
 const Footer = ({ onSelectTab }) => {
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState(null);
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newsletterEmail)) {
+      setNewsletterStatus('invalid');
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        'service_7de2vba',          // <-- Replace with your EmailJS service ID
+        'template_9did7be',      // <-- Replace with your EmailJS template ID
+        { user_email: newsletterEmail },
+        'RbSIEsg3eItd9Q2WL'           // <-- Replace with your EmailJS public key
+      );
+      setNewsletterStatus('success');
+      setNewsletterEmail('');
+    } catch (error) {
+      setNewsletterStatus('error');
+    }
+    setTimeout(() => setNewsletterStatus(null), 4000);
+  };
+
   return (
     <footer style={{ backgroundColor: '#0f172a', color: 'white', padding: '3rem 2rem', fontSize: '0.9rem' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -87,7 +115,7 @@ const Footer = ({ onSelectTab }) => {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact + Newsletter */}
           <div style={{ flex: '1 1 220px' }}>
             <h4 style={{ marginBottom: '1rem' }}>Contact</h4>
             <p><FaMapMarkerAlt style={{ marginRight: '8px' }} /> 20 Sutton Dr <br />Cohoes , NY 12047</p>
@@ -95,24 +123,33 @@ const Footer = ({ onSelectTab }) => {
             <p><FaEnvelope style={{ marginRight: '8px' }} /> hr@dhriti.solutions</p>
 
             <p style={{ marginTop: '1.2rem', fontWeight: 'bold' }}>Subscribe to our newsletter</p>
-            <div style={{ display: 'flex', marginTop: '0.5rem' }}>
+            <form onSubmit={handleSubscribe} style={{ display: 'flex', marginTop: '0.5rem' }}>
               <input
                 type="email"
                 placeholder="Your email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 style={{ flex: 1, padding: '0.5rem', border: 'none', borderRadius: '4px 0 0 4px' }}
+                required
               />
-              <button style={{ backgroundColor: '#14b8a6', border: 'none', padding: '0 1rem', borderRadius: '0 4px 4px 0', color: 'white' }}>
+              <button
+                type="submit"
+                style={{ backgroundColor: '#14b8a6', border: 'none', padding: '0 1rem', borderRadius: '0 4px 4px 0', color: 'white' }}
+              >
                 <FaPaperPlane />
               </button>
-            </div>
+            </form>
+            {newsletterStatus === 'success' && <p style={{ color: '#22c55e', marginTop: '0.5rem' }}>Subscribed successfully!</p>}
+            {newsletterStatus === 'error' && <p style={{ color: '#ef4444', marginTop: '0.5rem' }}>Subscription failed. Try again.</p>}
+            {newsletterStatus === 'invalid' && <p style={{ color: '#facc15', marginTop: '0.5rem' }}>Enter a valid email address.</p>}
           </div>
         </div>
 
         <hr style={{ margin: '2rem 0', borderColor: '#1e293b' }} />
 
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', fontSize: '0.8rem', color: '#94a3b8' }}>
-          <p>© 2025 Dhriti Solutions. All rights reserved | 
-          <Link
+          <p>© 2025 Dhriti Solutions. All rights reserved |
+            <Link
               to="privacy-policy"
               smooth={true}
               duration={500}
@@ -122,10 +159,19 @@ const Footer = ({ onSelectTab }) => {
             >
               Privacy Policy
             </Link>
-
           </p>
         </div>
       </div>
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-600">We are a proud participant in the <strong>E-Verify</strong> program.</p>
+        <img
+          src={eVerifyLogo}
+          alt="E-Verify Logo"
+          className="mx-auto mt-2 h-10"
+          style={{ height: '100px', marginTop: '10px' }}
+        />
+      </div>
+
     </footer>
   );
 };
