@@ -1,81 +1,91 @@
-import React from 'react';
-import logo from '../assets/logo.png'; // Make sure this path is correct
+import React, { useEffect, useState } from 'react';
+import logo from '../assets/logo.png';
 import eVerifyLogo from '../assets/e-verify-logo.png';
+
 function Header() {
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+    sections.forEach(section => observer.observe(section));
+    return () => sections.forEach(section => observer.unobserve(section));
+  }, []);
+
+  const getLinkStyle = (sectionId) =>
+    sectionId === activeSection
+      ? { ...navStyle, color: '#2a9d8f', fontWeight: '700' }
+      : navStyle;
+
   return (
-    <header style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 1000,
-      backgroundColor: '#ffffff',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '1rem 2rem',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-    }}>
-      {/* Logo Section */}
-      {/* Logo Section */}
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <img src={logo} alt="Dhriti Solutions Logo" style={{ height: '40px', marginRight: '10px' }} />
+    <header style={headerStyle}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <img src={logo} alt="Dhriti Solutions Logo" style={{ height: '40px' }} />
         <div>
-          <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#004080' }}>
+          <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#004080' }}>
             Dhriti <span style={{ color: '#2a9d8f' }}>Solutions</span>
-          </span>
-          <div>
-            <img
-              src={eVerifyLogo}
-              alt="E-Verify"
-              style={{
-                height: '60px',
-                marginLeft: '12px',
-                verticalAlign: 'middle',
-              }}
-            />
           </div>
         </div>
+        <img
+          src={eVerifyLogo}
+          alt="E-Verify"
+          style={{ height: '64px', marginLeft: '24px' }}
+        />
       </div>
 
-
-      {/* Navigation Links */}
       <nav>
-        <ul style={{ listStyle: 'none', display: 'flex', gap: '1.5rem', margin: 0 }}>
-          <li>
-            <button
-              onClick={() => {
-                const el = document.getElementById('home');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'inherit',
-                cursor: 'pointer',
-                font: 'inherit',
-                padding: 0
-              }}
-            >
-              Home
-            </button>
-          </li>
-          <li><a href="#services" style={navStyle}>Services</a></li>
-          <li><a href="#industries" style={navStyle}>Industries</a></li>
-          <li><a href="#about" style={navStyle}>About</a></li>
-          <li><a href="#partners" style={navStyle}>Partners</a></li>
-          <li><a href="#contact" style={navStyle}>Contact</a></li>
+        <ul style={navListStyle}>
+          <li><a href="#home" style={getLinkStyle('home')}>Home</a></li>
+          <li><a href="#services" style={getLinkStyle('services')}>Services</a></li>
+          <li><a href="#industries" style={getLinkStyle('industries')}>Industries</a></li>
+          <li><a href="#about" style={getLinkStyle('about')}>About</a></li>
+          <li><a href="#partners" style={getLinkStyle('partners')}>Partners</a></li>
+          <li><a href="#contact" style={getLinkStyle('contact')}>Contact</a></li>
         </ul>
       </nav>
     </header>
   );
 }
 
+// Styling
+const headerStyle = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  zIndex: 1000,
+  backgroundColor: '#ffffff',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '1rem 2rem',
+  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+  flexWrap: 'wrap'
+};
+
+const navListStyle = {
+  listStyle: 'none',
+  display: 'flex',
+  gap: '1.5rem',
+  margin: 0,
+  padding: 0
+};
+
 const navStyle = {
   textDecoration: 'none',
   color: '#333',
   fontWeight: '500',
-  fontSize: '1rem'
+  fontSize: '1rem',
+  transition: 'all 0.3s ease'
 };
 
 export default Header;
