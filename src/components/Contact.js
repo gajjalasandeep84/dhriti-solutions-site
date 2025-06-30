@@ -108,9 +108,6 @@ const Contact = () => {
               address: '20 Sutton Dr, Cohoes, NY 12047',
               phone: '(971)-998-5516',
               email: 'hr@dhriti.solutions'
-            }, {
-              title: 'Sales',
-              emails: ['ganesh@dhriti.solutions', 'kc@dhriti.solutions']
             }].map((item, idx) => (
               <div key={idx} style={{ background: '#f1f5f9', padding: '1rem', borderRadius: '6px', marginBottom: '1rem' }}>
                 <h4 style={{ fontWeight: '600', marginBottom: '0.5rem' }}>{item.title}</h4>
