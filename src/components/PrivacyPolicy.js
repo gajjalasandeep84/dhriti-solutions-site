@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
         <p>At Dhriti Solutions Inc., we are committed to safeguarding the privacy of our clients, partners, and website visitors. This Privacy Policy outlines how we collect, use, disclose, and protect your personal information when you interact with us through our website, services, and communications.</p>
 
         <h2>Who We Are</h2>
-        <p>Dhriti Solutions Inc. is a technology solutions provider specializing in software development, AI/ML services, data science, cybersecurity, coaching, consulting, and staffing solutions. Our headquarters are located in Cohoe, NY, USA.</p>
+        <p>Dhriti Solutions Inc. is a technology solutions provider specializing in software development, AI/ML services, data science, cybersecurity, coaching, consulting, and staffing solutions. Our headquarters are located in Cohoes, NY, USA.</p>
 
         <h2>Information We Collect</h2>
         <ul>
