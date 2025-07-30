@@ -9,4 +9,4 @@ function Industries() {
   );
 }
 
-export default Software;
+export default Industries;
